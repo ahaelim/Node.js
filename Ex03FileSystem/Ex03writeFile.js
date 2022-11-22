@@ -1,6 +1,6 @@
 const fs = require("fs").promises;
 
-fs.writeFile("./writeme.txt", "새로 만든 파일!")
+fs.writeFile("./writeme.txt", "새로 만든 파일!") // 파일 생성
   .then(() => {
     // 파일 생성이 성공하면
     return fs.readFile("./writeme.txt");
