@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const bodyParser = require("body-parser");
-router.use(bodyParser.urlencoded({ extended: true }));
-router.get("/", (req, res) => {
+
+// loginform.html 렌더링
+router.get("/loginform", (req, res) => {
   res.render("loginform");
 });
 
+// 로그인 처리
 router.post("/login", (req, res) => {
   let id = req.body.id;
   let pw = req.body.pw;
