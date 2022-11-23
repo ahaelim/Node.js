@@ -25,7 +25,14 @@ router.get("/setcookie", (req, res) => {
 // cookie-parser 모듈은 app에서 작성 해주면 됨!
 router.get("/getcookies", (req, res) => {
   console.log(req.cookies);
+  console.log(req.cookies.dinner);
   res.send(req.cookies);
+});
+
+//쿠키 삭제하기
+router.get("/deletecookie", (req, res) => {
+  res.clearCookie("dinner");
+  res.send("쿠키 냠..");
 });
 
 module.exports = router;
