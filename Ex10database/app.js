@@ -1,10 +1,15 @@
 const express = require("express");
 const nunjucks = require("nunjucks");
+const indexRouter = require("./routes");
+const bodyParser = require("body-parser");
 
 const app = express();
 
 app.set("port", process.env.PORT || 8888);
 app.set("view engine", "html");
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use("/", indexRouter);
 
 nunjucks.configure("views", {
   express: app,
