@@ -84,5 +84,18 @@ router.get("/delete/:id", (req, res) => {
   });
 });
 
+// 회원 정보 수정하기
+router.post("/update", (req, res) => {
+  let { id, pw, nick } = req.body;
+  let sql = "update member set  pw=?, nick=? where id=?";
+  conn.query(sql, [pw, nick, id], function (err, rows, fields) {
+    if (err) {
+      console.error("update 실행 실패 : " + err);
+    } else {
+      res.redirect("/select");
+    }
+  });
+});
+
 // router 내보내기
 module.exports = router;
