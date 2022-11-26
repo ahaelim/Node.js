@@ -1,38 +1,25 @@
-'use strict';
+const Sequelize = require("sequelize");
+const User = require("./user");
+const env = "development";
+const config = require("../config/config")[env];
 
-const fs = require('fs');
-const path = require('path');
-const Sequelize = require('sequelize');
-const process = require('process');
-const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.json')[env];
-const db = {};
+// db 연결 정보
+const sequelize = new Sequelize(
+  config.database,
+  config.username,
+  config.password,
+  config
+);
 
-let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
-}
+const db = {}; // sequelize, object;
 
-fs
-  .readdirSync(__dirname)
-  .filter(file => {
-    return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
-  })
-  .forEach(file => {
-    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
-    db[model.name] = model;
-  });
-
-Object.keys(db).forEach(modelName => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
-  }
-});
-
+//   key      value(db정보)
 db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+//  init, associate가지고 있음
+db.User = User; // db와 테이블 연결
+
+// static이라 바로 호출 가능
+User.init(sequelize); // 테이블 초기화
+User.associate(db); // 관계 설정
 
 module.exports = db;
