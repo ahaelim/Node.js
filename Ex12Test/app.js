@@ -18,7 +18,7 @@ app.use(
   })
 );
 
-app.use("/", indexRouter);
+app.use("/book", indexRouter);
 
 // force : 서버 실행 시 마다 테이블을 재생성할 것인지 아닌지
 sequelize
